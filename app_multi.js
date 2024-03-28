@@ -5,6 +5,10 @@ const path = require("path");
 const folderPath = "./images";
 const listURLAfterUpload = [];
 
+const delay = (time) => {
+  return new Promise((resolve) => setTimeout(resolve, time));
+};
+
 (async () => {
   // Use fs.promises to read and filter image files asynchronously
   const files = await fs.readdir(folderPath);
@@ -49,7 +53,7 @@ const listURLAfterUpload = [];
     ]);
     await fileChooser.accept([img]);
 
-    await authPage.waitForSelector("._link_pjgp0_25"); // wait to get url link
+    await delay(10000); // 10s per image
 
     const linkHref = await authPage.evaluate(() => {
       const linkElement = document.querySelector("._link_pjgp0_25");
